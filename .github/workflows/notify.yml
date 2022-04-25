@@ -1,7 +1,9 @@
 name: Notify
-on: issues
+on:
+  schedule:
+    - cron: "0 4 * * *"
 jobs:
-  deploy:
+  notify:
     runs-on: ubuntu-18.04
     steps:
       - name: Git checkout

@@ -23,13 +23,11 @@ async function queryHPVIsUpdate() {
 
   const currentTime = dayjs.tz().startOf("day").unix();
 
-  console.log("test----->", currentTime, upgradeTime);
-
-  // if (upgradeTime >= currentTime) {
-  //   axios.get(
-  //     `https://sctapi.ftqq.com/${SEND_KEY}.send?title=HPV&desp=${upgradeTime};${bendibaoUrl}`
-  //   );
-  // }
+  if (upgradeTime >= currentTime) {
+    axios.get(
+      `https://sctapi.ftqq.com/${SEND_KEY}.send?title=HPV&desp=${upgradeTime};${bendibaoUrl}`
+    );
+  }
 }
 
 module.exports = { queryHPVIsUpdate };
