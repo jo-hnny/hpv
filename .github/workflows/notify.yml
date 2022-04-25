@@ -1,0 +1,20 @@
+name: CI
+on: issues
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Build
+        run: |
+          npm install
+          npm start
+        env:
+          SEND_KEY: ${{ secrets.SEND_KEY }}
