@@ -2,6 +2,10 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const dayjs = require("dayjs");
 const timezone = require("dayjs/plugin/timezone");
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Shanghai");
 
 const bendibaoUrl = "http://m.xa.bendibao.com/live/94522.shtm";
 
@@ -13,15 +17,19 @@ async function queryHPVIsUpdate() {
 
   const $ = cheerio.load(html);
 
-  const upgradeTime = $("#news-article > aside > span.public_time").text();
+  const upgradeTimeText = $("#news-article > aside > span.public_time").text();
 
-  console.log(upgradeTime);
+  const upgradeTime = dayjs.tz(upgradeTimeText).unix();
 
-  const machineTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  const currentTime = dayjs.tz().startOf("day").unix();
 
-  axios.get(
-    `https://sctapi.ftqq.com/${SEND_KEY}.send?title=HPV&desp=${upgradeTime};${machineTime}`
-  );
+  console.log("test----->", currentTime, upgradeTime);
+
+  // if (upgradeTime >= currentTime) {
+  //   axios.get(
+  //     `https://sctapi.ftqq.com/${SEND_KEY}.send?title=HPV&desp=${upgradeTime};${bendibaoUrl}`
+  //   );
+  // }
 }
 
 module.exports = { queryHPVIsUpdate };
