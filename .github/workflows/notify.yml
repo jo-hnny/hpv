@@ -1,6 +1,5 @@
 name: Notify
 on:
-  issues:
   schedule:
     - cron: "0 14 * * *"
 jobs:
