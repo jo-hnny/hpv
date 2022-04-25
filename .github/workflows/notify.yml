@@ -2,7 +2,7 @@ name: Notify
 on:
   issues:
   schedule:
-    - cron: "20 4 * * *"
+    - cron: "0 14 * * *"
 jobs:
   notify:
     runs-on: ubuntu-18.04
